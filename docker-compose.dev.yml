@@ -1,0 +1,46 @@
+version: '2'
+services:
+  #######################################
+  # PHP application Docker container
+  #######################################
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.php74
+    # image: natansdj/php-orcl:74
+    container_name: d_php_oracle
+    networks:
+      default:
+        ipv4_address: 172.18.0.35
+    ports:
+      - "8002:80"
+      - "8443:443"
+    #   - "10022:22"
+    volumes:
+      - ./backup:/storage
+      - ../_htdocs/net_bpn_anomali/:/app/
+      - ./:/docker/
+      - ./etc/php/development.ini:/opt/docker/etc/php/development.ini
+    # cap and privileged needed for slowlog
+    cap_add:
+      - SYS_PTRACE
+    privileged: true
+    env_file:
+      - etc/environment.yml
+      - etc/environment.development.yml
+    mem_limit: 1000m
+    environment:
+      VIRTUAL_HOST: "php_oracle.vm"
+      VIRTUAL_PORT: "80"
+      WEB_DOCUMENT_ROOT: "/app/public"
+      # LETSENCRYPT_HOST: "php_oracle.vm"
+      # LETSENCRYPT_EMAIL: "php_oracle@example.com"
+      # VIRTUAL_PORT: "443"
+      # PHP_XDEBUG_ENABLED: 1
+      # PHP_IDE_CONFIG: serverName=php_oracle.vm
+      # XDEBUG_CONFIG: remote_host=172.18.0.1 remote_connect_back=1
+
+networks:
+  default:
+    external:
+      name: dev
