@@ -20,7 +20,7 @@ services:
       - ./backup:/storage
       - ../_htdocs/net_bpn_anomali/:/app/
       - ./:/docker/
-      - ./etc/php/development.ini:/opt/docker/etc/php/development.ini
+      - ./etc/php/development_php74.ini:/opt/docker/etc/php/development.ini
     # cap and privileged needed for slowlog
     cap_add:
       - SYS_PTRACE

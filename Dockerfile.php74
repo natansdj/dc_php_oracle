@@ -13,8 +13,9 @@ COPY oracle/          /backup/
 
 RUN ln -sf /opt/docker/etc/cron/crontab /etc/cron.d/docker-boilerplate \
     && chmod 0644 /opt/docker/etc/cron/crontab \
-    && echo >> /opt/docker/etc/cron/crontab \
-    && ln -sf /opt/docker/etc/php/development.ini /opt/docker/etc/php/php.ini
+    && echo >> /opt/docker/etc/cron/crontab
+
+RUN ln -sf /opt/docker/etc/php/development.ini /opt/docker/etc/php/php.ini
 
 # Install Oracle Instantclient
 RUN mkdir /opt/oracle \
