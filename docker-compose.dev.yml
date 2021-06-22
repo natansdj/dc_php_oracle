@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.php74
-    # image: natansdj/php-orcl:74
+    image: dc_php_orcl:7.4
     container_name: d_php_oracle
     networks:
       default:

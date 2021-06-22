@@ -85,13 +85,13 @@ RUN apt-get update && apt-get install build-essential libaio1 libaio-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# RUN echo 'shared,instantclient,/opt/oracle/instantclient_12_2,12.2' | pecl install -f --ignore-errors oci8 \
+# RUN echo 'shared,instantclient,/opt/oracle/instantclient_12_2,12.2' | pecl install -f --ignore-errors oci8-2.2.0 \
     # && rm -rf /tmp/pear \
     # && cp /opt/docker/etc/php/docker-oci.ini /usr/local/etc/php/conf.d/docker-oci.ini
 
 RUN docker-php-source extract \
     && docker-php-ext-configure pdo_oci --with-pdo-oci=shared,instantclient,/opt/oracle/instantclient_12_2,12.2 \
-    && echo 'shared,instantclient,/opt/oracle/instantclient_12_2/,$ORACLE_HOME' | pecl install -f oci8 \
+    && echo 'shared,instantclient,/opt/oracle/instantclient_12_2/,$ORACLE_HOME' | pecl install -f oci8-2.2.0 \
     && docker-php-ext-install \
         pdo_oci \
     && docker-php-ext-enable \
